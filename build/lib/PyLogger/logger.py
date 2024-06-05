@@ -5,7 +5,6 @@ import argparse
 from .config import Config
 from .log_handler import LogHandler
 
-
 init(autoreset=True)
 
 
@@ -24,23 +23,23 @@ class Logger:
             kwargs_str = ', '.join(f'{k}={v!r}' for k, v in kwargs.items())
             all_args = ', '.join(filter(None, [args_str, kwargs_str]))
 
-            
             color = Fore.RED if self.level == 'ERROR' else Fore.BLUE
             stop_color = Fore.RESET
 
-            log_message = f'{color}[{self.level}]{stop_color} [{timestamp}] {func.__name__}({all_args})'
+            log_message = f'{color}[{self.level}]{stop_color};[{timestamp}];{func.__name__};({all_args})'
             self._log_handler.log_message(log_message)
-            
+
             try:
                 result = func(*args, **kwargs)
             except Exception as e:
                 self.level = 'ERROR'
                 color = Fore.RED if self.level == 'ERROR' else Fore.BLUE
                 stop_color = Fore.WHITE
-                error_message = f'{color}[{self.level}]{stop_color} [{timestamp}] {func.__name__}({all_args}) - ERROR: {e}'
+                error_message = f'{color}[{self.level}]{stop_color};[{timestamp}];{func.__name__};({all_args});ERROR: {e}'
                 self._log_handler.log_message(error_message)
                 raise
             return result
+
         return wrapper
 
     def _create_config(self, filename):
