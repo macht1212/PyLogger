@@ -26,7 +26,7 @@ class Logger:
             color = Fore.RED if self.level == 'ERROR' else Fore.BLUE
             stop_color = Fore.RESET
 
-            log_message = f'{color}[{self.level}]{stop_color};[{timestamp}];{func.__name__};({all_args})'
+            log_message = f'{color}[{self.level}]{stop_color};[{timestamp}];{func.__name__};'
             self._log_handler.log_message(log_message)
 
             try:
@@ -35,7 +35,7 @@ class Logger:
                 self.level = 'ERROR'
                 color = Fore.RED if self.level == 'ERROR' else Fore.BLUE
                 stop_color = Fore.WHITE
-                error_message = f'{color}[{self.level}]{stop_color};[{timestamp}];{func.__name__};({all_args});ERROR: {e}'
+                error_message = f'{color}[{self.level}]{stop_color};[{timestamp}];{func.__name__};ERROR: {e}'
                 self._log_handler.log_message(error_message)
                 raise
             return result
