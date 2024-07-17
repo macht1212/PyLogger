@@ -15,8 +15,10 @@ class Config:
             self._config = {
                 'logger': {
                     'filename': 'app.log',
-                    'max_bytes': 100000,
-                    'backup_count': 1
+                    'max_bytes': 1048576,
+                    'backup_count': 2,
+                    'level': 'INFO',
+                    'error_report_dir': 'error_reports'
                 }
             }
 
@@ -24,12 +26,14 @@ class Config:
         with open(self._config_file, 'w') as f:
             toml.dump(self._config, f)
 
-    def create_config(self, filename):
+    def create_config(self, filename, level='INFO', error_report_dir='error_reports'):
         self._config = {
             'logger': {
                 'filename': filename,
                 'max_bytes': 0,
-                'backup_count': 0
+                'backup_count': 0,
+                'level': level,
+                'error_report_dir': error_report_dir
             }
         }
         self._save_config()

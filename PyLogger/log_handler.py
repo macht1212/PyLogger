@@ -1,5 +1,6 @@
 import os
-
+import traceback
+import datetime
 
 
 class LogHandler:
@@ -28,3 +29,20 @@ class LogHandler:
                     os.rename(f"{filename}.{i}", f"{filename}.{i + 1}")
             if os.path.exists(filename):
                 os.rename(filename, f"{filename}.1")
+
+    def save_error_report(self, func_name, args, kwargs, error):
+        error_report_dir = self._config['logger'].get('error_report_dir', 'error_reports')
+        if not os.path.exists(error_report_dir):
+            os.makedirs(error_report_dir)
+
+        timestamp = datetime.datetime.now().strftime('%Y%m%d_%H:%M:%S')
+        report_filename = os.path.join(error_report_dir, f'error_{func_name}_{timestamp}.txt')
+
+        with open(report_filename, 'w') as file:
+            file.write(f'FUNCTION: {func_name}\n')
+            file.write(f'TIMESTAMP: {timestamp}\n')
+            file.write(f'ARGS: {args}\n')
+            file.write(f'KWARGS: {kwargs}\n')
+            file.write(f'ERROR: {error}\n')
+            file.write(f'TRASEBACK:\n')
+            file.write(traceback.format_exc())
