@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
   name='PyLogger3',
-  version='0.1.3',
+  version='0.1.4',
   author='macht1212',
   description='This is the simplest logger.',
   classifiers=[

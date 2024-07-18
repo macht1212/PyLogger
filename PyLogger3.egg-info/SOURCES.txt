@@ -8,5 +8,4 @@ PyLogger/logger.py
 PyLogger3.egg-info/PKG-INFO
 PyLogger3.egg-info/SOURCES.txt
 PyLogger3.egg-info/dependency_links.txt
-PyLogger3.egg-info/requires.txt
 PyLogger3.egg-info/top_level.txt
